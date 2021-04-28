@@ -35,7 +35,6 @@ class _FooterState extends State<Footer> {
           BottomNavigationBarItem(
             icon: Icon(_footerIcons[i], color: Colors.black87),
             title: Text(_footerItemNames[i], style: TextStyle(color: Colors.black87)),
-            // label: _footerItemNames[i],
           ),
         );
       } else {
@@ -43,7 +42,6 @@ class _FooterState extends State<Footer> {
           BottomNavigationBarItem(
             icon: Icon(_footerIcons[i], color: Colors.black26),
             title: Text(_footerItemNames[i], style: TextStyle(color: Colors.black26)),
-            // label: _footerItemNames[i],
           ),
         );
       }
@@ -61,7 +59,6 @@ class _FooterState extends State<Footer> {
   Widget build(BuildContext context) {
     return BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
-      // type: BottomNavigationBarType.shifting,
       items: _bottomNavigationBarItems,
       currentIndex: _currentIndex,
       onTap: _onTapped,
