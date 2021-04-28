@@ -6,7 +6,6 @@ import 'package:google_sign_in/google_sign_in.dart';
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
 class Oauth extends StatefulWidget {
-
   @override
   _OauthState createState() => _OauthState();
 }
@@ -20,8 +19,6 @@ class _OauthState extends State<Oauth> {
     super.initState();
   }
 
-
-
   final Map<String, Buttons> _types = {
     'Apple': Buttons.AppleDark,
     'Email': Buttons.Email,
@@ -33,7 +30,6 @@ class _OauthState extends State<Oauth> {
     'Tumblr': Buttons.Tumblr,
     'Twitter': Buttons.Twitter,
   };
-
 
   // Example code for sign out.
   Future<void> _signOut() async => await _auth.signOut();
@@ -106,6 +102,7 @@ class _OauthState extends State<Oauth> {
 
       final user = userCredential.user;
       print(user);
+      Navigator.pushReplacementNamed(context, '/home');
       // Scaffold.of(context).showSnackBar(
       //     SnackBar(content: Text('Sign In ${user.uid} with Google')));
     } catch (e) {
