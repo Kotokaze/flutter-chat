@@ -20,19 +20,16 @@ class _OauthState extends State<Oauth> {
   }
 
   final Map<String, Buttons> _types = {
-    'Apple': Buttons.AppleDark,
-    'Email': Buttons.Email,
+    // 'Apple': Buttons.AppleDark,
+    // 'Email': Buttons.Email,
     'Google': Buttons.GoogleDark,
-    'Facebook': Buttons.FacebookNew,
-    'GitHub': Buttons.GitHub,
-    'Linkedin': Buttons.LinkedIn,
-    'Pinterest': Buttons.Pinterest,
-    'Tumblr': Buttons.Tumblr,
-    'Twitter': Buttons.Twitter,
+    // 'Facebook': Buttons.FacebookNew,
+    // 'GitHub': Buttons.GitHub,
+    // 'Linkedin': Buttons.LinkedIn,
+    // 'Pinterest': Buttons.Pinterest,
+    // 'Tumblr': Buttons.Tumblr,
+    // 'Twitter': Buttons.Twitter,
   };
-
-  // Example code for sign out.
-  Future<void> _signOut() async => await _auth.signOut();
 
   void _showDialog(BuildContext context, String key) {
     showDialog(
@@ -46,7 +43,7 @@ class _OauthState extends State<Oauth> {
           ),
           SimpleDialogOption(
             child: Text("No"),
-            onPressed: () => Navigator.pop(context, false),
+            onPressed: () => Navigator.pop(context, [false, key]),
           )
         ],
       ),
@@ -101,14 +98,9 @@ class _OauthState extends State<Oauth> {
       userCredential = await _auth.signInWithCredential(googleAuthCredential);
 
       final user = userCredential.user;
-      print(user);
-      Navigator.pushReplacementNamed(context, '/home');
-      // Scaffold.of(context).showSnackBar(
-      //     SnackBar(content: Text('Sign In ${user.uid} with Google')));
+      Navigator.pushReplacementNamed(context, '/home', arguments: user);
     } catch (e) {
       print(e);
-      // Scaffold.of(context).showSnackBar(
-      //     SnackBar(content: Text('Failed to sign in with Google: $e')));
     }
   }
 }
