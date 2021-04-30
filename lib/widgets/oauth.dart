@@ -6,29 +6,29 @@ import 'package:google_sign_in/google_sign_in.dart';
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
 class Oauth extends StatefulWidget {
+  static User user;
+
   @override
   _OauthState createState() => _OauthState();
 }
 
 class _OauthState extends State<Oauth> {
-  User user;
-
   @override
   void initState() {
-    _auth.userChanges().listen((event) => setState(() => user = event));
+    _auth.userChanges().listen((event) => setState(() => Oauth.user = event));
     super.initState();
   }
 
   final Map<String, Buttons> _types = {
-    // 'Apple': Buttons.AppleDark,
-    // 'Email': Buttons.Email,
+    'Apple': Buttons.AppleDark,
+    'Email': Buttons.Email,
     'Google': Buttons.GoogleDark,
-    // 'Facebook': Buttons.FacebookNew,
-    // 'GitHub': Buttons.GitHub,
-    // 'Linkedin': Buttons.LinkedIn,
-    // 'Pinterest': Buttons.Pinterest,
-    // 'Tumblr': Buttons.Tumblr,
-    // 'Twitter': Buttons.Twitter,
+    'Facebook': Buttons.FacebookNew,
+    'GitHub': Buttons.GitHub,
+    'Linkedin': Buttons.LinkedIn,
+    'Pinterest': Buttons.Pinterest,
+    'Tumblr': Buttons.Tumblr,
+    'Twitter': Buttons.Twitter,
   };
 
   void _showDialog(BuildContext context, String key) {
@@ -61,6 +61,18 @@ class _OauthState extends State<Oauth> {
         break;
 
       default:
+        showDialog(
+          context: context,
+          builder: (builder) => AlertDialog(
+            title: Text("Unhandlable Error Occered"),
+            content: Text("Plese try other accounts"),
+            actions: [
+              SimpleDialogOption(
+                child: Text("Close"),
+                onPressed: () => Navigator.pop(context)
+              )
+            ],
+          ));
         break;
     }
   }
@@ -76,7 +88,7 @@ class _OauthState extends State<Oauth> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: _cols(context),
@@ -84,6 +96,7 @@ class _OauthState extends State<Oauth> {
     );
   }
 
+  /// Sign in with Google
   Future<void> _signInWithGoogle() async {
     try {
       UserCredential userCredential;
@@ -97,10 +110,11 @@ class _OauthState extends State<Oauth> {
 
       userCredential = await _auth.signInWithCredential(googleAuthCredential);
 
-      final user = userCredential.user;
-      Navigator.pushReplacementNamed(context, '/home', arguments: user);
-    } catch (e) {
-      print(e);
+      Oauth.user = userCredential.user;
+      Navigator.pushReplacementNamed(context, '/home', arguments: Oauth.user);
+    } on FirebaseAuthException catch (e) {
+      print('Failed with error code: ${e.code}');
+      print(e.message);
     }
   }
 }

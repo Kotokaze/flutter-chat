@@ -1,9 +1,17 @@
 import 'package:flutter/material.dart';
 
-class Header extends StatelessWidget with PreferredSizeWidget {
+class Header extends StatefulWidget with PreferredSizeWidget {
+  Header({Key key, this.title});
+  final title;
+
   @override
   Size get preferredSize => Size.fromHeight(kToolbarHeight);
 
+  @override
+  _HeaderState createState() => _HeaderState();
+}
+
+class _HeaderState extends State<Header> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -19,7 +27,7 @@ class Header extends StatelessWidget with PreferredSizeWidget {
           // child: IconButton(icon: Icon(Icons.add), onPressed: ),
         ),
       ],
-      title: Text('Home'),
+      title: Text(widget.title),
       centerTitle: true,
       backgroundColor: Colors.black87,
       elevation: 0.0,

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:chat/pages/home.dart';
 import 'package:chat/pages/signin.dart';
-
+import 'package:chat/router.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,11 +18,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       // debugShowCheckedModeBanner: false,
       // theme: ThemeData.dark(),
-      initialRoute: '/',
-      routes: {
-        '/': (BuildContext context) => SignInPage(),
-        '/home': (BuildContext context) => HomePage(),
-      },
+      home: SignInPage(),
+      onGenerateRoute: PageRouter.generate,
     );
   }
 }
