@@ -14,3 +14,12 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+## Firebase Local Emulator Suite
+```bash
+$ docker-compose run
+$ docker-compose exec firebase bash
+root@---:/opt/workspace# firebase login --no-localhost
+root@---:/opt/workspace# firebase init
+root@---:/opt/workspace# firebase emulators:start
+```
