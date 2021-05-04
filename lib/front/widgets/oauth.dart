@@ -1,23 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-
-final FirebaseAuth _auth = FirebaseAuth.instance;
+import 'package:chat/infrastructure/server/auth_service.dart';
 
 class Oauth extends StatefulWidget {
-  static User user;
 
   @override
   _OauthState createState() => _OauthState();
 }
 
 class _OauthState extends State<Oauth> {
-  @override
-  void initState() {
-    _auth.userChanges().listen((event) => setState(() => Oauth.user = event));
-    super.initState();
-  }
 
   final Map<String, Buttons> _types = {
     'Apple': Buttons.AppleDark,
@@ -47,17 +38,17 @@ class _OauthState extends State<Oauth> {
           )
         ],
       ),
-    ).then((value) async {
+    ).then((value) {
       if (value[0]) {
-        await _oauthSingin(value[1]);
+        _oauthSingin(value[1]);
       }
     });
   }
 
-  _oauthSingin(String key) {
+  void _oauthSingin(String key) {
     switch (key) {
       case "Google":
-        _signInWithGoogle();
+        AuthService().signInWithGoogle();
         break;
 
       default:
@@ -69,10 +60,11 @@ class _OauthState extends State<Oauth> {
             actions: [
               SimpleDialogOption(
                 child: Text("Close"),
-                onPressed: () => Navigator.pop(context)
-              )
+                onPressed: () => Navigator.pop(context),
+              ),
             ],
-          ));
+          ),
+        );
         break;
     }
   }
@@ -94,27 +86,5 @@ class _OauthState extends State<Oauth> {
         children: _cols(context),
       ),
     );
-  }
-
-  /// Sign in with Google
-  Future<void> _signInWithGoogle() async {
-    try {
-      UserCredential userCredential;
-      final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
-      final GoogleSignInAuthentication googleAuth =
-          await googleUser.authentication;
-      final googleAuthCredential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
-      );
-
-      userCredential = await _auth.signInWithCredential(googleAuthCredential);
-
-      Oauth.user = userCredential.user;
-      Navigator.pushReplacementNamed(context, '/home', arguments: Oauth.user);
-    } on FirebaseAuthException catch (e) {
-      print('Failed with error code: ${e.code}');
-      print(e.message);
-    }
   }
 }

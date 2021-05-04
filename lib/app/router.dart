@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:chat/pages/signin.dart';
-import 'package:chat/pages/home.dart';
-import 'package:chat/pages/rooms.dart';
+import 'package:chat/front/pages/signin.dart';
+import 'package:chat/front/pages/home.dart';
+import 'package:chat/front/pages/rooms.dart';
 
 mixin PageRouter implements StatelessWidget {
   static Route generate(RouteSettings settings) {
@@ -23,7 +23,7 @@ mixin PageRouter implements StatelessWidget {
         break;
       case '/rooms':
         return PageTransition(
-          child: Rooms(),
+          child: RoomsPage(),
           type: PageTransitionType.fade,
           settings: settings,
         );

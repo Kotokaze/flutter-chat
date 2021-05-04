@@ -1,19 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:chat/widgets/header.dart';
-import 'package:chat/widgets/footer.dart';
+import 'package:chat/front/widgets/header.dart';
+import 'package:chat/front/widgets/footer.dart';
 
-class Rooms extends StatefulWidget {
+class RoomsPage extends StatelessWidget {
   final String title = 'Chat';
 
   @override
-  _RoomsState createState() => _RoomsState();
-}
-
-class _RoomsState extends State<Rooms> {
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: Header(title: widget.title),
+      appBar: Header(title: title),
       body: Text("Chat rooms"),
       bottomNavigationBar: Footer(currentIndex: 1),
     );

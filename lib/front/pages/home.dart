@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:chat/widgets/oauth.dart';
-import 'package:chat/widgets/header.dart';
-import 'package:chat/widgets/user_card.dart';
-import 'package:chat/widgets/footer.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:chat/front/widgets/header.dart';
+import 'package:chat/front/widgets/user_card.dart';
+import 'package:chat/front/widgets/footer.dart';
 
 class HomePage extends StatefulWidget {
-  final String title = 'Home';
+  final String _title = 'Home';
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -14,9 +14,10 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
+    User _user = ModalRoute.of(context).settings.arguments;
     return Scaffold(
-      appBar: Header(title: widget.title),
-      body: Center(child: UserInfoCard(Oauth.user)),
+      appBar: Header(title: widget._title),
+      body: Center(child: UserInfoCard(_user)),
       bottomNavigationBar: Footer(),
     );
   }

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:chat/front/widgets/oauth.dart';
 
-class SignInPage extends StatelessWidget {
-  final String title = 'Sign In';
+
+class ChatPage extends StatelessWidget {
+  ChatPage(this.title);
+  final title;
 
   @override
   Widget build(BuildContext context) {
@@ -11,9 +12,8 @@ class SignInPage extends StatelessWidget {
         title: Text(this.title),
         centerTitle: true,
         backgroundColor: Colors.black87,
-        elevation: 0.0,
       ),
-      body: Oauth(),
+      body: Text("Chat Rooms"),
     );
   }
 }
